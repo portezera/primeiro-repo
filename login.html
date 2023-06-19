@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tela de login</title>
+    <style> 
+    
+        body{
+            text-align: center;
+            background-color: mediumseagreen;
+        }
+        h1{
+            text-align: center;
+        }
+        label {
+    display: block;
+    font: 0.9rem 'Fira Sans', sans-serif;
+}
+
+input[type='submit'],
+label {
+    margin-top: 1rem;
+}
+
+
+    </style>
+</head>
+<body>
+    <div>
+        <label for="username">nome de usuario</label>
+        <input type="text" id="username" name="username">
+    </div>
+
+    <div>
+        <label for="pass">Senha</label>
+        <input type="password" id="pass" name="password"
+               minlength="1" required>
+    </div>
+    
+    <input type="submit" value="cadastrar">
+    <p></p>
+      <a href="calculadora.html">após concluir seu cadastro clique aqui!</a>
+    
+</body>
+</html>
