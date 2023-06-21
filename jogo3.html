@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Caça fantasmas</title>
+    <style>
+        #palco {
+            /* Nosso palco ocupará 80% da largura e 70% da altura da tela. */
+            width: 80%;
+            height: 80vh;
+            /* Define a imagem a ser utilizada como pano de fundo. */
+            background-image: url('floresta.png');
+            /* A imagem  deve cobrir a div inteira, tanto em altura como em largura. */
+            background-size: cover;
+            background-repeat: no-repeat;
+            /* Margens superior e inferior zero e direita e esquerda automática, para que fique centralizado. */
+            margin: 0 auto;
+        }
+
+        #fantasma1 {
+            position: relative;
+        }
+
+        .display {
+            display: flex;
+            justify-content: space-between;
+            /* Para que com margin left/right auto fique alinhado a esquerda com o palco */
+            width: 80%;
+            /* Para "centralizar" horizontalmente */
+            margin: 0 auto;
+            font-size: 1.5em;
+            padding: .2em;
+        }
+
+        #cronometro span,
+        #placar span {
+            display: inline-block;
+            box-sizing: border-box;
+            width: 50px;
+            text-align: center;
+            color: white;
+            background-color: orange;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+
+    <section class="display">
+        <label id="placar">fantasmas capturados:
+            <span>0</span>
+        </label>
+        <label id="cronometro">Tempo:
+            <span>50</span>
+        </label>
+    </section>
+    <div id="palco">
+        <img src="data:image/jpeg;base64,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" alt="Fantasma número 1" id="fantasma1" onclick="capturar()">
+    </div>
+
+    <script>
+        /** 
+         * Pega a imagem com id fantasma1 e salva em uma variável 
+         * para que seja possível manipularmos com JavaScript. 
+         */
+        const $fantasma1 = document.getElementById("fantasma1");
+
+        // Constante referente ao palco
+        const $palco = document.getElementById('palco');
+
+        const $placar = document.getElementById('placar');
+        let fantasmasCapturados = 0;
+
+        const $cronometro = document.getElementById('cronometro');
+        let tempoSegundos = 10;
+
+        function capturar() {
+            esconda();
+            fantasmasCapturados++;
+            $placar.innerHTML = `Fantasmas capturados: <span>${fantasmasCapturados}</span>`;
+        }
+
+        // https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Math/random
+        function getRandomInt(min, max) {
+            min = Math.ceil(min);
+            max = Math.floor(max);
+            return Math.floor(Math.random() * (max - min)) + min;
+        }
+
+        // Esconde a imagem fantasma1.
+        function esconda() {
+            $fantasma1.style.top = getRandomInt(0, $palco.clientHeight - $fantasma1.clientHeight) + "px";
+            $fantasma1.style.left = getRandomInt(0, $palco.clientWidth - $fantasma1.clientWidth) + "px";
+            $fantasma1.style.display = "none";
+        }
+
+        // Mostra a imagem fantasma1.
+        function mostre() {
+            $fantasma1.style.display = "";
+        }
+
+        // Função principal do jogo.
+        function jogo() {
+            if ($fantasma1.style.display == "none") {
+                mostre();
+            } else {
+                esconda();
+            }
+
+            atualizaTempo();
+
+            if (tempoSegundos <= 0) {
+                clearInterval(refreshIntervalId);
+            }
+        }
+
+
+        // Define o intervalo de repetição em milissegundos.
+        let refreshIntervalId = setInterval(jogo, 1000);
+
+        function atualizaTempo() {
+            tempoSegundos--;
+            $cronometro.innerHTML = `Tempo: <span>${tempoSegundos}</span>`;
+        }
+    </script>
+</body>
+
+</html>
